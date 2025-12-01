@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Beyza ♥</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #ffe6f2;
+    margin: 0; 
+    padding-top: 60px;
+    overflow-x: hidden; /* YATAY KAYDIRMAYI ENGELLER - KRİTİK */
+  }
+  
+  h1{
+    font-size: 30px;
+    color: #d63384;
+    animation: pulse 1.7s infinite;
+  }
+  @keyframes pulse {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.05);}
+    100% {transform: scale(1);}
+  }
+
+  .btn{
+    font-size: 20px; /* Mobilde daha okunaklı */
+    padding: 10px 24px; /* Mobilde daha kompakt */
+    margin: 10px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s;
+    position: relative;
+  }
+
+  #yesBtn{
+    background: #ff4d6d;
+    color: white;
+  }
+  #noBtn{
+    background: #6c757d;
+    color: white;
+  }
+
+  #thanks{
+    margin-top: 30px;
+    font-size: 30px;
+    color: #c9184a;
+    font-weight: bold;
+    display: none;
+    animation: shake 0.7s infinite;
+  }
+
+  @keyframes shake {
+    0% { transform: translate(1px, 1px); }
+    25% { transform: translate(-1px, 0px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, 1px); }
+    100% { transform: translate(1px, 1px); }
+  }
+
+  #flowers{
+    display: none;
+    margin-top: 20px;
+    font-size: 80px; /* Mobilde daha uygun boy */
+  }
+
+  /* Kalpler */
+  .heart{
+    position: fixed;
+    bottom: 0;
+    color: #ff4d6d;
+    font-size: 25px;
+    animation: floatUp 3s linear forwards;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-600px) scale(1.8); opacity: 0; }
+  }
+
+  /* Konfeti */
+  .confetti{
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall 3s linear forwards;
+  }
+
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); }
+  }
+</style>
+</head>
+<body>
+
+    <h1>Beyza benimle çıkar mısın? ❤️</h1>
+    
+    <button id="yesBtn" class="btn">Evet</button>
+    <button id="noBtn" class="btn">Hayır</button>
+    
+    <div id="thanks">Teşekkür ederim ❤️🌸</div>
+
+    <div id="flowers">💐</div>
+
+
+<script>
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const thanks = document.getElementById("thanks");
+  const flowers = document.getElementById("flowers"); 
+
+  let grow = 1;
+
+  // Hayır butonu kaçma + Evet büyüme
+  noBtn.addEventListener("click", () => {
+    grow += 0.25;
+    yesBtn.style.transform = `scale(${grow})`;
+
+    // kaçma hareketi
+    // Mobil ekranda butonun çok uzağa kaçmasını engellemek için değerleri azalttım.
+    const randX = Math.random() * 150 - 75; 
+    const randY = Math.random() * 100 - 50; 
+
+    noBtn.style.transform = `translate(${randX}px, ${randY}px)`;
+  });
+
+  // Evet basılınca final sürprizi
+  yesBtn.addEventListener("click", () => {
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+
+    thanks.style.display = "block";
+    flowers.style.display = "block";
+
+    startHearts();
+    startConfetti();
+  });
+
+  // Kalp yağmuru
+  function startHearts(){
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 3000);
+    }, 300);
+  }
+
+  // Konfeti yağmuru
+  function startConfetti(){
+    const colors = ["#ff4d6d", "#ffb3c6", "#ff8fa3", "#ffc2d1", "#ffccd5"];
+
+    setInterval(() => {
+      const c = document.createElement("div");
+      c.classList.add("confetti");
+      c.style.left = Math.random() * window.innerWidth + "px";
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      document.body.appendChild(c);
+
+      setTimeout(() => c.remove(), 3000);
+    }, 120);
+  }
+</script>
+
+</body>
+</html>
