@@ -11,7 +11,7 @@
     background: #ffe6f2;
     margin: 0; 
     padding-top: 60px;
-    overflow-x: hidden; /* YATAY KAYDIRMAYI ENGELLER - KRİTİK */
+    overflow-x: hidden;
   }
   
   h1{
@@ -26,8 +26,8 @@
   }
 
   .btn{
-    font-size: 20px; /* Mobilde daha okunaklı */
-    padding: 10px 24px; /* Mobilde daha kompakt */
+    font-size: 20px;
+    padding: 10px 24px;
     margin: 10px;
     border-radius: 12px;
     border: none;
@@ -65,7 +65,7 @@
   #flowers{
     display: none;
     margin-top: 20px;
-    font-size: 80px; /* Mobilde daha uygun boy */
+    font-size: 100px;
   }
 
   /* Kalpler */
@@ -115,18 +115,26 @@
   const flowers = document.getElementById("flowers"); 
 
   let grow = 1;
+  let noClickCount = 0; // Tıklama sayacı
 
   // Hayır butonu kaçma + Evet büyüme
   noBtn.addEventListener("click", () => {
+    noClickCount++;
     grow += 0.25;
     yesBtn.style.transform = `scale(${grow})`;
 
-    // kaçma hareketi
-    // Mobil ekranda butonun çok uzağa kaçmasını engellemek için değerleri azalttım.
-    const randX = Math.random() * 150 - 75; 
-    const randY = Math.random() * 100 - 50; 
+    // Eğer sayaç 10'a ulaşırsa, "Hayır" butonunu tamamen kaldır
+    if (noClickCount >= 10) { // BURASI 10 OLARAK GÜNCELLENDİ
+        noBtn.style.display = "none";
+        // Buton kaybolunca, "Evet" butonunun büyümesi de daha agresif hale gelir
+        yesBtn.style.transform = `scale(3)`; 
+    } else {
+        // kaçma hareketi (sadece 10. tıklamadan önce)
+        const randX = Math.random() * 150 - 75; 
+        const randY = Math.random() * 100 - 50; 
 
-    noBtn.style.transform = `translate(${randX}px, ${randY}px)`;
+        noBtn.style.transform = `translate(${randX}px, ${randY}px)`;
+    }
   });
 
   // Evet basılınca final sürprizi
