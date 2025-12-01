@@ -72,9 +72,10 @@
   .heart{
     position: fixed;
     bottom: 0;
-    color: #ff4d6d;
+    color: #ff4d6d; /* KALPLERİN RENGİ TEKRAR KIRMIZI YAPILDI */
     font-size: 25px;
     animation: floatUp 3s linear forwards;
+    text-shadow: none; /* Beyaz kalp için eklenen gölge kaldırıldı */
   }
 
   @keyframes floatUp {
@@ -103,7 +104,7 @@
     <button id="yesBtn" class="btn">Evet</button>
     <button id="noBtn" class="btn">Hayır</button>
     
-    <div id="thanks">Teşekkür ederim ❤️🌸</div>
+    <div id="thanks">Seni Seviyorum 🤍</div>
 
     <div id="flowers">💐</div>
 
@@ -115,7 +116,7 @@
   const flowers = document.getElementById("flowers"); 
 
   let grow = 1;
-  let noClickCount = 0; // Tıklama sayacı
+  let noClickCount = 0; 
 
   // Hayır butonu kaçma + Evet büyüme
   noBtn.addEventListener("click", () => {
@@ -124,9 +125,8 @@
     yesBtn.style.transform = `scale(${grow})`;
 
     // Eğer sayaç 10'a ulaşırsa, "Hayır" butonunu tamamen kaldır
-    if (noClickCount >= 10) { // BURASI 10 OLARAK GÜNCELLENDİ
+    if (noClickCount >= 10) { 
         noBtn.style.display = "none";
-        // Buton kaybolunca, "Evet" butonunun büyümesi de daha agresif hale gelir
         yesBtn.style.transform = `scale(3)`; 
     } else {
         // kaçma hareketi (sadece 10. tıklamadan önce)
@@ -154,7 +154,8 @@
     setInterval(() => {
       const heart = document.createElement("div");
       heart.classList.add("heart");
-      heart.textContent = "❤️";
+      // ARKA PLAN YAĞMURUNUN KIRMIZI KALBİ
+      heart.textContent = "❤️"; 
       heart.style.left = Math.random() * window.innerWidth + "px";
       document.body.appendChild(heart);
 
